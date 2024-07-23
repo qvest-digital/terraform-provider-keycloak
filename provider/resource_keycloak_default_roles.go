@@ -103,6 +103,13 @@ func resourceKeycloakDefaultRolesReconcile(ctx context.Context, data *schema.Res
 		return diag.FromErr(err)
 	}
 
+	if realm == nil {
+		return diag.Diagnostics{{
+			Severity: diag.Error,
+			Summary:  "realm not found: " + defaultRoles.RealmId,
+		}}
+	}
+
 	data.SetId(realm.DefaultRole.Id)
 
 	composites, err := keycloakClient.GetDefaultRoles(ctx, defaultRoles.RealmId, realm.DefaultRole.Id)
