@@ -21,7 +21,7 @@ accessToken=$(
 )
 
 function post() {
-    curl -s -v --fail \
+    curl -s --fail \
         -H "Authorization: bearer ${accessToken}" \
         -H "Content-Type: application/json" \
         -d "${2}" \
@@ -29,7 +29,7 @@ function post() {
 }
 
 function put() {
-    curl -s -v --fail \
+    curl -s --fail \
         -X PUT \
         -H "Authorization: bearer ${accessToken}" \
         -H "Content-Type: application/json" \
@@ -38,7 +38,7 @@ function put() {
 }
 
 function get() {
-    curl -v --fail --silent \
+    curl --fail --silent \
         -H "Authorization: bearer ${accessToken}" \
         -H "Content-Type: application/json" \
         "${KEYCLOAK_URL}/admin${1}"
