@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -xe
 
 KEYCLOAK_URL="http://localhost:8080"
 KEYCLOAK_USER="keycloak"
@@ -21,7 +21,7 @@ accessToken=$(
 )
 
 function post() {
-    curl --fail \
+    curl -s -v --fail \
         -H "Authorization: bearer ${accessToken}" \
         -H "Content-Type: application/json" \
         -d "${2}" \
@@ -29,7 +29,7 @@ function post() {
 }
 
 function put() {
-    curl --fail \
+    curl -s -v --fail \
         -X PUT \
         -H "Authorization: bearer ${accessToken}" \
         -H "Content-Type: application/json" \
@@ -38,7 +38,7 @@ function put() {
 }
 
 function get() {
-    curl --fail --silent \
+    curl -v --fail --silent \
         -H "Authorization: bearer ${accessToken}" \
         -H "Content-Type: application/json" \
         "${KEYCLOAK_URL}/admin${1}"
