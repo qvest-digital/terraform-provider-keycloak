@@ -109,6 +109,13 @@ func resourceKeycloakDefaultRolesReconcile(ctx context.Context, data *schema.Res
 			Summary:  "realm not found: " + defaultRoles.RealmId,
 		}}
 	}
+	if realm.DefaultRole == nil || realm.DefaultRole.Id == "" {
+		return diag.Diagnostics{{
+			Severity: diag.Error,
+			Summary:  "realm does not have a default role",
+		}}
+
+	}
 
 	data.SetId(realm.DefaultRole.Id)
 
