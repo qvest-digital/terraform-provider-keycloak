@@ -13,7 +13,7 @@ This provider can be installed automatically using Terraform >=0.13 by using the
 terraform {
   required_providers {
     keycloak = {
-      source = "mrparkers/keycloak"
+      source = "qvest-digital/keycloak"
       version = ">= 4.0.0"
     }
   }
