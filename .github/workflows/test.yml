@@ -96,7 +96,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_wrapper: false
-          terraform_version: 1.4.1
+          # terraform_version: 1.4.1
+          terraform_version: 1.5.7
 
       - name: Initialize Keycloak
         run: ./scripts/wait-for-local-keycloak.sh && ./scripts/create-terraform-client.sh
