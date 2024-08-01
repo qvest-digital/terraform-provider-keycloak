@@ -229,6 +229,7 @@ realm = "%s"
 }
 resource "keycloak_realm_events" "realm_events" {
 realm_id = "${keycloak_realm.realm.id}"
+enabled = true
 
 admin_events_enabled         = true
 admin_events_details_enabled = true
