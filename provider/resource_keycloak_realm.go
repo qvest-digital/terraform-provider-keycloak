@@ -7,6 +7,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/qvest-digital/terraform-provider-keycloak/keycloak"
 	"github.com/qvest-digital/terraform-provider-keycloak/keycloak/types"
+	"strconv"
 )
 
 var (
@@ -1172,6 +1173,9 @@ func setDefaultSecuritySettingsBruteForceDetection(realm *keycloak.Realm) {
 
 func setRealmData(data *schema.ResourceData, realm *keycloak.Realm) {
 	data.SetId(realm.Realm)
+	println(data.Get("enabled"))
+	println("Realm enabled: " + strconv.FormatBool(realm.Enabled))
+	println("----")
 
 	data.Set("realm", realm.Realm)
 	data.Set("internal_id", realm.Id)

@@ -226,7 +226,6 @@ func testKeycloakRealmEvents_basic(realm string) string {
 	return fmt.Sprintf(`
 resource "keycloak_realm" "realm" {
 realm = "%s"
-enabled = true
 }
 resource "keycloak_realm_events" "realm_events" {
 realm_id = "${keycloak_realm.realm.id}"
