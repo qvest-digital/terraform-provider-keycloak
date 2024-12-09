@@ -4,8 +4,8 @@ import (
 	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/imdario/mergo"
-	"github.com/qvest-digital/terraform-provider-keycloak/keycloak"
-	"github.com/qvest-digital/terraform-provider-keycloak/keycloak/types"
+	"github.com/keycloak/terraform-provider-keycloak/keycloak"
+	"github.com/keycloak/terraform-provider-keycloak/keycloak/types"
 )
 
 func resourceKeycloakOidcGoogleIdentityProvider() *schema.Resource {

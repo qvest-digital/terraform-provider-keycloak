@@ -12,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2 # we want the HEAD commit and the previous commit to compare changed files
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
           cache: true
@@ -31,7 +31,7 @@ jobs:
       # we only want to run tests if any code changes (not for README or docs changes)
       - name: Check Changed Files
         id: files
-        uses: tj-actions/changed-files@v1.1.3
+        uses: tj-actions/changed-files@v45
         with:
           files: |
             .github
@@ -70,40 +70,39 @@ jobs:
     concurrency:
       group: ${{ github.head_ref || github.run_id }}-${{ matrix.keycloak-version }}
       cancel-in-progress: true
-    services:
-      keycloak:
-        # we have to use a custom docker image for these tests, since it's not possible to provide command-line args
-        # to a service container.  see https://github.com/actions/runner/issues/2139
-        image: ghcr.io/${{ github.repository }}-keycloak-dev:${{ matrix.keycloak-version }}
-        ports:
-          - 8080:8080
-        env:
-          KC_DB: dev-mem
-          KC_LOG_LEVEL: INFO
-          KEYCLOAK_ADMIN: keycloak
-          KEYCLOAK_ADMIN_PASSWORD: password
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
           cache: true
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
-          # terraform_version: 1.4.1
-          terraform_version: 1.5.7
+          terraform_version: 1.9.8
+
+      - name: Start Keycloak Container
+        run: |
+          docker run -d --name keycloak \
+          -p 8080:8080 \
+          -e KC_DB=dev-mem \
+          -e KC_LOG_LEVEL=INFO \
+          -e KEYCLOAK_ADMIN=keycloak \
+          -e KEYCLOAK_ADMIN_PASSWORD=password \
+          -e KC_FEATURES=preview \
+          -v $PWD/provider/misc:/opt/keycloak/misc:z \
+          quay.io/keycloak/keycloak:${{ matrix.keycloak-version }} start-dev
 
       - name: Initialize Keycloak
         run: ./scripts/wait-for-local-keycloak.sh && ./scripts/create-terraform-client.sh
 
       - name: Get Keycloak Version
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         id: keycloak-version
         env:
           KEYCLOAK_VERSION: ${{ matrix.keycloak-version }}
@@ -124,3 +123,7 @@ jobs:
           KEYCLOAK_TEST_PASSWORD_GRANT: "true"
           KEYCLOAK_VERSION: ${{ steps.keycloak-version.outputs.result }}
         timeout-minutes: 60
+      - name: Clean up
+        run: |
+          docker stop keycloak
+          docker rm keycloak
