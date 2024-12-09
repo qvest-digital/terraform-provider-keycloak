@@ -5,7 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/imdario/mergo"
-	"github.com/qvest-digital/terraform-provider-keycloak/keycloak/types"
+	"github.com/keycloak/terraform-provider-keycloak/keycloak/types"
+
 	"reflect"
 	"strings"
 
@@ -14,7 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/customdiff"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/qvest-digital/terraform-provider-keycloak/keycloak"
+	"github.com/keycloak/terraform-provider-keycloak/keycloak"
 )
 
 var (

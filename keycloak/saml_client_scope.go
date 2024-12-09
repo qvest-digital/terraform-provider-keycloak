@@ -3,7 +3,7 @@ package keycloak
 import (
 	"context"
 	"fmt"
-	"github.com/qvest-digital/terraform-provider-keycloak/keycloak/types"
+	"github.com/keycloak/terraform-provider-keycloak/keycloak/types"
 )
 
 type SamlClientScope struct {
