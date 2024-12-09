@@ -7,7 +7,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/keycloak/terraform-provider-keycloak/keycloak"
 	"github.com/keycloak/terraform-provider-keycloak/keycloak/types"
-
 	"regexp"
 	"strconv"
 	"testing"
