@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/imdario/mergo"
 	"github.com/keycloak/terraform-provider-keycloak/keycloak/types"
-
 	"reflect"
 	"strings"
 

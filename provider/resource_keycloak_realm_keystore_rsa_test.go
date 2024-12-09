@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/keycloak/terraform-provider-keycloak/keycloak"
-
 	"log"
 	"math/big"
 	"regexp"

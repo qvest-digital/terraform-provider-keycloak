@@ -3,7 +3,6 @@ package provider
 import (
 	"fmt"
 	"github.com/keycloak/terraform-provider-keycloak/keycloak/types"
-
 	"regexp"
 	"strconv"
 	"testing"

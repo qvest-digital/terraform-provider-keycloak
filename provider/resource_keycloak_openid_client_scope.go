@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/keycloak/terraform-provider-keycloak/keycloak/types"
-
 	"strconv"
 	"strings"
 
